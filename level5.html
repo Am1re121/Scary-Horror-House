@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 5</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center; 
+        align-items: center;     
+        height: 100vh;
+        background-color: #000;
+        overflow-y: hidden;
+    }
+    
+    #background{
+        width: 1000px;
+        height: 700px;
+    }
+
+    #boss{
+        position: absolute;
+        width: 150px;
+        height: 130px;
+        top: 35%;
+        left: 45%;
+    }
+
+    #exit{
+        position: absolute;
+        width: 50px;
+        height: 100px;
+        left: 53%;
+        top: 60%;
+        cursor: pointer;
+
+    }
+
+    #creepy{
+        position: absolute;
+        width: 1000px;
+        height: 1100px;
+        display: none;
+    }
+
+    #ui {
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        text-align: center;
+}
+
+    #health-text {
+        display: none;
+        color: #d0d0d0;
+        font-size: 30px;
+        font-family: Georgia, serif;
+        letter-spacing: 4px;
+        margin-bottom: 20px;
+
+        text-shadow:
+            0 0 10px rgba(255,255,255,0.2),
+            0 0 20px rgba(255,255,255,0.1);
+    }
+
+    #buttons {
+        display: flex;
+        gap: 20px;
+    }
+
+    #attack-btn,
+    #heal-btn {
+        display: none;
+        width: 180px;
+        height: 55px;
+
+        background: rgba(20,20,20,0.95);
+        border: 2px solid #444;
+
+        color: #d8d8d8;
+        font-size: 18px;
+        font-family: Georgia, serif;
+        letter-spacing: 3px;
+
+        cursor: pointer;
+
+        transition: all 0.2s ease;
+
+        box-shadow:
+            inset 0 0 15px rgba(255,255,255,0.05),
+            0 0 15px rgba(0,0,0,0.8);
+    }
+
+#attack-btn:hover,
+#heal-btn:hover {
+    border-color: #888;
+    color: white;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,0.15),
+        inset 0 0 20px rgba(255,255,255,0.08);
+
+    transform: scale(1.03);
+}
+
+#attack-btn:active,
+#heal-btn:active {
+    transform: scale(0.96);
+}
+
+#apt{
+    position: absolute;
+    color: #d0d0d0;
+    left: 500px;
+    display: none;
+    
+}
+</style>
+<body>
+    <img src="Assets/Level5/background.png" id="background">
+    <img src="Assets/Level5/Darkness.png" id="boss">
+    <img src="Assets/Level5/Darknesscopy.png" id="creepy">
+
+    
+    <audio id="sowyer">
+        <source src="Assets/Level5/Music/sowyer.mp3" type="audio/mpeg"> 
+    </audio>
+    <audio id="farland">
+        <source src="Assets/Level5/Music/tiktok-farlands.mp3" type="audio/mpeg"> 
+    </audio>
+    <audio id="stopscream">
+        <source src="Assets/Level5/Music/screamstop.mp3" type="audio/mpeg"> 
+    </audio>
+    <audio id="end">
+        <source src="Assets/Level5/Music/end.mp3" type="audio/mpeg"> 
+    </audio>
+    <audio id="sowyerend">
+        <source src="Assets/Level5/Music/sowyerend.mp3" type="audio/mpeg"> 
+    </audio>
+    <audio id="laught">
+        <source src="Assets/Level5/Music/laught.mp3" type="audio/mpeg"> 
+    </audio>
+
+    <div id="exit" onclick="exit()"></div>
+    <div id="ui">
+    <div id="health-text">❤️ Здоровье: 100</div>
+    <h1 id="apt">Аптечки закончились</h1>
+
+    <div id="buttons">
+        <button id="attack-btn" onclick="attack()">АТАКА</button>
+        <button id="heal-btn" onclick="healt()">ХИЛКА</button>
+    </div>
+</div>
+
+    <script>
+        let bosshp = 200;
+        let hp = 100;
+        let bossdead = false;
+        let creepy = document.getElementById('creepy');
+        let damageplayer= true;
+
+        setTimeout(()=> {
+            document.getElementById('farland').play()
+
+        },500);
+
+        setTimeout(() => {
+            document.getElementById('sowyer').play()
+        },5000);
+
+        setTimeout(() => {
+            document.getElementById('heal-btn').style.display = 'block';
+            document.getElementById('attack-btn').style.display = 'block';
+            document.getElementById('health-text').style.display = 'block';
+            setInterval(() =>{
+                if(damageplayer) {
+                    hp-=10
+                }
+                document.getElementById('health-text').textContent = `❤️ Здоровье:${hp}`
+
+                if(hp <= 0) {
+                    creepy.style.display = 'block';
+                    document.getElementById('end').play();
+                    setTimeout(() =>{
+                        window.location.reload()
+                    },2000);
+                }
+            },1000)
+        },22500)
+
+        
+        function exit() {
+            if(bossdead && dialog){
+                window.location.href='win.html';
+        }else{
+            creepy.style.display='block';
+            document.getElementById('stopscream').play();
+            setTimeout(() =>{
+                window.location.reload();
+            },2000);
+        }
+        }
+        let dialog = false;
+        function attack() {
+            bosshp -= 100
+
+            if(bosshp <= 0) {
+                bossdead = true;
+                damageplayer = false;
+                document.getElementById('sowyerend').play();
+                setTimeout(() =>{
+                    dialog = true;
+                },5000);
+
+                setTimeout(() =>{
+                    creepy.style.display = 'block';
+                    document.getElementById('laught').play();
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 2000)
+                },7000)
+            }
+        }
+        
+        let aptechka = 5;
+        let aptuse = true;
+        function healt() {
+            if(aptechka <=0) {
+                document.getElementById('health-text').style.display = 'block';
+                aptuse = false;
+            }
+            if(aptuse) {
+                hp+=40
+            }else{
+                document.getElementById('health-text').style.display = 'block';
+            }
+            aptechka -= 1;
+            if(hp > 100){
+            hp=100
+            }
+
+
+            document.getElementById('health-text').textContent = `❤️ Здоровье:${hp}`
+        }
+    </script>
+</body>
+</html>

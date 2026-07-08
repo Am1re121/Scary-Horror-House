@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конец</title>
+
+<style>
+    body {
+        margin: 0;
+        background: black;
+        overflow: hidden;
+        color: white;
+        font-family: Georgia, serif;
+    }
+
+    #credits {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 100%;
+        animation: scroll 35s linear forwards;
+    }
+
+    h1 {
+        font-size: 50px;
+        letter-spacing: 5px;
+        text-shadow: 0 0 15px white;
+        margin-bottom: 80px;
+    }
+
+    h2 {
+        font-size: 30px;
+        letter-spacing: 3px;
+        margin-top: 50px;
+    }
+
+    p {
+        font-size: 25px;
+        line-height: 1.8;
+        color: #ccc;
+    }
+
+    .line {
+        margin: 70px 0;
+        color: #444;
+    }
+
+
+    @keyframes scroll {
+        from {
+            top: 100%;
+        }
+
+        to {
+            top: -120%;
+        }
+    }
+
+
+    #dark {
+        position: fixed;
+        inset: 0;
+        background: black;
+        opacity: 0;
+        animation: fade 5s forwards;
+    }
+
+    @keyframes fade {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<div id="dark"></div>
+
+<div id="credits">
+
+<h1>СПАСИБО ЗА ИГРУ</h1>
+
+<p>
+Вы прошли весь путь...<br><br>
+
+Все тайны были раскрыты.<br>
+Все испытания были пройдены.
+</p>
+
+
+<div class="line">
+----------------
+</div>
+
+
+<h2>СОЗДАТЕЛЬ ИГРЫ</h2>
+
+<p>
+Amirjon Usmonov
+</p>
+
+
+<div class="line">
+----------------
+</div>
+
+
+<h2>ИДЕЯ И КОНЦЕПЦИЯ ИГРЫ</h2>
+
+<p>
+XdouBle<br><br>
+
+TikTok:<br>
+@xdouble420
+</p>
+
+
+<div class="line">
+----------------
+</div>
+
+
+<p>
+Спасибо всем, кто поддержал создание этой игры.
+</p>
+
+
+<p>
+Ваше путешествие окончено...
+</p>
+
+
+<p>
+Но тьма никогда не исчезает.
+</p>
+
+
+<h2>
+До новых кошмаров...
+</h2>
+
+
+<h1>
+КОНЕЦ
+</h1>
+
+
+</div>
+
+
+<audio autoplay loop>
+    <source src="end.mp3" type="audio/mpeg">
+</audio>
+
+
+</body>
+</html>

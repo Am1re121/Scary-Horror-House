@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1</title>
+</head>
+<style>
+    body {
+         margin: 0;
+        display: flex;
+        justify-content: center; 
+        align-items: center;     
+        height: 100vh;
+        background-color: #000;
+        overflow-y: hidden;
+    }
+
+    #level1-image {
+        width: 1100px;
+        height: 700px;
+    }
+
+    #text1-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 500px;
+    }
+
+    #text2-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 500px;
+    }
+
+    #text3-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 500px;
+    }
+
+    #key-image {
+        position: absolute;
+        top: 500px;
+        left: 300px;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+    }
+
+    #exitkey {
+        position: absolute;
+        top: 320px;
+        left: 960px;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+    }
+
+    #creepy-image {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1100px;
+        height: 700px;
+    }
+
+    #creepy-zona {
+        position: absolute;
+        top: 30%;
+        left: 45%;
+        width: 5%;
+        height: 30%;
+    }
+</style>
+
+<body>
+    <img src="Assets/Level1/roomlevel1.png" id="level1-image" alt="Level 1 Image">
+    <img src="Assets/Level1/text1.png" id="text1-image" alt="Text Test Image">
+    <img src="Assets/Level1/text2.png" id="text2-image" alt="Text Test Image" style="display: none;">
+    <img src="Assets/Level1/text3.png" id="text3-image" alt="Text Test Image" style="display: none;">
+    <img src="Assets/Level1/key.png" id="key-image" alt="Key Image" onclick="GetKeyCount()">
+    <img src="Assets/Level1/creepy.png" id="creepy-image" alt="Creepy Image" style="display: none;">
+    <div id="exitkey" onclick="Exit()"></div>
+    <audio id="creepy-music">
+        <source src="Assets/Level1/Music/krik-ispugaa.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="creepy2-music">
+        <source src="Assets/Level1/Music/half-life-skrimer.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="creepy-zona" onclick="Creepy()"></div>
+
+    <script>
+        let keyCount = 0;
+        let text1 = document.getElementById("text1-image");
+        let text2 = document.getElementById("text2-image");
+        let text3 = document.getElementById("text3-image");
+        let keyImage = document.getElementById("key-image");
+        setTimeout(() => {
+            text1.style.display = "none";
+            text2.style.display = "block";
+        }, 1500);
+
+        setTimeout(() => {
+            text2.style.display = "none";
+            text3.style.display = "block";
+        }, 6000);
+
+        setTimeout(() => {
+            text3.style.display = "none";
+        }, 9000);
+
+        setTimeout(() => {
+            document.getElementById("creepy-image").style.display = "block";
+            document.getElementById("creepy2-music").play();
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        }, 20000);
+
+
+
+
+        function GetKeyCount() {
+            keyCount++;
+            keyImage.style.display = "none";
+
+        }
+
+        function Exit() {
+            if (keyCount >= 1) {
+                window.location.href = "level2.html";
+            } else {
+                document.getElementById("creepy-image").style.display = "block";
+                document.getElementById("creepy2-music").play();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            }
+        }
+
+        function Creepy() {
+            document.getElementById("creepy-image").style.display = "block";
+            document.getElementById("creepy2-music").play();
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

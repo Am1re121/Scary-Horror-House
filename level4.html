@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 4</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center; 
+        align-items: center;     
+        height: 100vh;
+        background-color: #000;
+        overflow-y: hidden;
+    }
+
+    #level4-img {
+        width: 1100px;
+        height: 700px;
+    }
+
+    #flashlight {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.98);
+    }
+
+    #creepy1-image {
+        position: absolute;
+        top: 50%;
+        left: 70%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 100px;
+    }
+
+    #creepy2-image {
+        position: absolute;
+        top: 50%;
+        left: 30%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 100px;
+    }
+
+    #creepy2-pers{
+        position: absolute;
+        left: 25%;
+        width: 1000;
+        height: 900;
+        display: none;
+        z-index: 9999;
+    }
+
+
+    #text1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 500px;
+        z-index: 9999;
+    }
+</style>
+<body>
+    <img src="Assets/Level4/level4.png" alt="level 4" id="level4-img">
+    <img src="Assets/Level4/creepy1.png" alt="creepy1" id="creepy1-image">
+    <img src="Assets/Level4/creepy2.png" alt="creepy2" id="creepy2-image">
+    <img src="Assets/Level4/creepy2-pers.png" alt="creepy2-pers" id="creepy2-pers">
+    <img src="Assets/Level4/text1.png" alt="text" id="text1">
+    <div id="flashlight"></div>
+
+    <audio autoplay>
+        <source src="Assets/Level4/Music/background.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="scary">
+        <source src="Assets/Level4/Music/scary.mp3" type="audio/mpeg">
+    </audio>
+
+
+
+    <script>
+        const flashlight = document.getElementById('flashlight');
+        let creepy1 = document.getElementById('creepy1-image');
+        let creepy2 = document.getElementById('creepy2-image');
+        let creepy2pers = document.getElementById('creepy2-pers');
+        let text1 = document.getElementById('text1')
+        let stopcreepy1 = false;
+        let stopcreepy2 = false;
+        let size1 = 100;
+        let size2 = 100;
+        let gameover = false;
+
+        setTimeout(() => {
+            text1.style.display='none';
+        },2000);    
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            flashlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0) 80px, rgba(0, 0, 0, 0.98) 130px)`;
+        });
+
+        creepy1.addEventListener('mouseenter', () => {
+            stopcreepy1 = true;
+        });
+
+        creepy1.addEventListener('mouseleave', () => {
+            stopcreepy1 = false;
+        });
+
+        creepy2.addEventListener('mouseenter', () => {
+            stopcreepy2 = true;
+        });
+
+        creepy2.addEventListener('mouseleave', () => {
+            stopcreepy2 = false;
+        });
+
+        setInterval(() => {
+            if(!stopcreepy1) {
+                size1+= 2
+                creepy1.style.width = size1 + 'px';
+                creepy1.style.height = size1 + 'px';
+            } 
+            
+            if(!stopcreepy2) {
+                size2+= 2
+                creepy2.style.width = size2 + 'px';
+                creepy2.style.height = size2 + 'px';
+            }
+
+            if((size2>700||size1 >700)&& !gameover) {
+                gameover = true;
+                creepy2pers.style.display = 'block';
+                document.getElementById('scary').play()
+
+                setTimeout(() =>{
+                    if(gameover) {
+                        window.location.reload()
+                }
+                },2000);
+        }
+        }, 60);
+
+
+        setTimeout(() => {
+            window.location.href= 'level5.html'
+        },30000);
+    </script>
+</body>
+</html>

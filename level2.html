@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center; 
+        align-items: center;     
+        height: 100vh;
+        background-color: #000;
+        overflow-y: hidden;
+    }
+
+    #level2-image {
+        width: 1100px;
+        height: 700px;
+    }
+
+    #fonarik-image {
+        position: absolute;
+        top: 70%;
+        left: 70%;
+        transform: translateX(-50%);
+        width: 130px;
+        height: 130px;
+        cursor: pointer;
+    }
+
+    #flashlight {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.98);
+    }
+
+    #creepy1-image {
+        position: absolute;
+        top: 10%;
+        left: 45%;
+        transform: translateX(-50%);
+        width: 1000px;
+        height: 700px;
+        z-index: 9999;
+    }
+
+    #creepy1prs-image {
+        position: absolute;
+        top: 60%;
+        left: 30%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 150px;
+    }
+
+    #creepy2-image {
+        position: absolute;
+        top: 10%;
+        left: 45%;
+        transform: translateX(-50%);
+        width: 1000px;
+        height: 700px;
+        z-index: 9999;
+    }
+
+    #creepy2prs-image {
+        position: absolute;
+        top: 70%;
+        left: 80%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 150px;
+    }
+
+    #exit {
+        position: absolute;
+        top: 33%;
+        left: 34%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+    }
+
+    #text1-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 500px;
+        z-index: 9999;
+    }
+
+    #text2-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 500px;
+        z-index: 9999;
+    }
+</style>
+<body>
+    <img src="Assets/Level2/level2.png" id="level2-image" alt="Level 2 Image">
+    <img src="Assets/Level2/fonarik.png" id="fonarik-image" alt="Fonarik Image" onclick="Getflashlight()">
+    <img src="Assets/Level2/creepy1.png" id="creepy1-image" alt="Creepy Image 1" style="display: none;">
+    <img src="Assets/Level2/creepy1-pers.png" id="creepy1prs-image" alt="Creepy Image 1prs" onmouseover="creepy1()">
+    <img src="Assets/Level2/creepy2.png" id="creepy2-image" alt="Creepy Image 2" style="display: none;">
+    <img src="Assets/Level2/creepy2-pers.png" id="creepy2prs-image" alt="Creepy Image 2prs" onmouseover="creepy2()">
+    <img src="Assets/Level2/text1.png" id="text1-image" alt="Text Test Image">
+    <img src="Assets/Level2/text2.png" id="text2-image" alt="Text Test Image" style="display: none;">
+    <audio id="scream1" >
+        <source src="Assets/Level2/Music/scream1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="background-music" autoplay loop>
+        <source src="Assets/Level2/Music/daisy-bell-creepy-version.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="scream2" >
+        <source src="Assets/Level2/Music/scream2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="flashlight"></div>
+    <div id="exit" onclick="Exit()"></div>
+
+
+    <script>
+        let flashlight = document.getElementById('flashlight');
+        let fonarik = document.getElementById('fonarik-image');
+        let hasFlashlight = false;
+        let countexit = 0;
+        let exit = document.getElementById('exit');
+        let flicker = false;
+        let text1 = document.getElementById("text1-image");
+        let text2 = document.getElementById("text2-image");
+
+        setTimeout(() => {
+            text1.style.display = 'none';
+            text2.style.display = 'block';
+        }, 2000);
+
+        setTimeout(() => {
+            text2.style.display = 'none';
+        }, 4000);
+
+
+        document.addEventListener('mousemove', function(e) {
+            if (!hasFlashlight) return;
+
+            let radius = flicker ? 60 : 90; 
+            let blur = flicker ? 120 : 140;
+
+            flashlight.style.background = `
+            radial-gradient(
+            circle at ${e.clientX}px ${e.clientY}px,
+            rgba(0, 0, 0, 0) ${radius}px,
+            rgba(0, 0, 0, 1) ${blur}px
+        )
+    `;
+});
+
+        
+        setInterval(function() {
+            flicker = !flicker;
+        }, 500);
+
+        function Getflashlight() {
+            fonarik.style.display = 'none';
+            hasFlashlight = true;
+            flashlight.style.display = 'block';
+            countexit++;
+        }
+
+        function creepy1() {
+            let creepy1Image = document.getElementById('creepy1-image');
+            let creepy1prsImage = document.getElementById('creepy1prs-image');
+            creepy1prsImage.style.display = 'none';
+            creepy1Image.style.display = 'block';
+            document.getElementById('scream1').play();
+            setTimeout(function() {
+                creepy1Image.style.display = 'none';
+            }, 1000);
+        }
+
+        function creepy2() {
+            let creepy2Image = document.getElementById('creepy2-image');
+            let creepy2prsImage = document.getElementById('creepy2prs-image');
+            creepy2prsImage.style.display = 'none';
+            creepy2Image.style.display = 'block';
+            document.getElementById('scream2').play();
+            setTimeout(function() {
+                creepy2Image.style.display = 'none';
+            }, 2000);
+        }
+
+        function Exit() {
+            if (countexit >= 1) {
+                window.location.href = "level3.html";
+            } else {
+                let creepy2Image = document.getElementById('creepy2-image');
+                let creepy2prsImage = document.getElementById('creepy2prs-image');
+                creepy2prsImage.style.display = 'none';
+                creepy2Image.style.display = 'block';
+                document.getElementById('scream2').play();
+                setTimeout(function() {
+                    window.location.reload();
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
